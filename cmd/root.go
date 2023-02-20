@@ -4,9 +4,11 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
-	"os"
-
+	"github.com/leigme/loki/app"
+	"github.com/leigme/loki/file"
 	"github.com/spf13/cobra"
+	"log"
+	"os"
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -38,9 +40,13 @@ func init() {
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
 
-	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.ubuntuctl.yaml)")
+	// rootCmd.PersistentFlags().StringVar(&cfgFile, "template", "", "template file (default is $HOME/.ubuntuctl.yaml)")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
+	err := file.CreateDir(app.WorkDir())
+	if err != nil {
+		log.Print(err)
+	}
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
